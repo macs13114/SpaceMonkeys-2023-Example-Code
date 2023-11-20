@@ -39,13 +39,13 @@ public class Robot extends TimedRobot {
     right_back_CIM.set(ControlMode.PercentOutput, right);
   }
 
-  public void firing()
+  public void firing(boolean x, boolean a)
   {
-    if(but_X_Intake)
+    if(x)
     {
       left_fire.set(ControlMode.PercentOutput, 0.6);
     }
-    else if(but_A_Fire)
+    else if(a)
     {
       left_fire.set(ControlMode.PercentOutput, -1.0);
     }
@@ -138,7 +138,7 @@ public class Robot extends TimedRobot {
     double turn = xboxJoystick.getRawAxis(1);
     
     arcade(thr, turn);
-    firing();
+    firing(but_X_Intake, but_A_Fire);
   }
 
   @Override
