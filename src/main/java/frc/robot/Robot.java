@@ -30,6 +30,9 @@ public class Robot extends TimedRobot {
   private boolean but_X_Intake = xboxJoystick.getRawButton(0);
   private boolean but_A_Fire = xboxJoystick.getRawButton(1);
 
+  private final boolean b_true = true;
+  private final boolean b_flase = false;
+
   public void arcade(double thr, double turn)
   {
     double left = -thr - turn;
@@ -39,13 +42,13 @@ public class Robot extends TimedRobot {
     right_back_CIM.set(ControlMode.PercentOutput, right);
   }
 
-  public void firing(boolean x, boolean a)
+  public void firing(boolean button_x, boolean button_a)
   {
-    if(x)
+    if(button_x)
     {
       left_fire.set(ControlMode.PercentOutput, 0.6);
     }
-    else if(a)
+    else if(button_a)
     {
       left_fire.set(ControlMode.PercentOutput, -1.0);
     }
@@ -66,54 +69,12 @@ public class Robot extends TimedRobot {
     left_fire = new TalonSRX(4);
     right_fire = new TalonSRX(5);
 
-    if(left_back_CIM.getInverted() != true){
-      left_back_CIM.setInverted(true);
-      System.out.print("Left Back INVERTED: Fixed");
-    }
-    else
-    {
-      System.out.print("Left Back INVERTED: Clear");
-    }
-
-    if(left_front_CIM.getInverted() != true){
-      left_front_CIM.setInverted(true);
-      System.out.print("Left Back INVERTED: Fixed");
-    }
-    else{
-      System.out.print("Left Back INVERTED: Clear");
-    }
-
-    if(right_front_CIM.getInverted() != false){
-      right_front_CIM.setInverted(false);
-      System.out.print("Left Back INVERTED: Fixed");
-    }
-    else{
-      System.out.print("Left Back INVERTED: Clear");
-    }
-
-    if(right_back_CIM.getInverted() != false){
-      right_back_CIM.setInverted(false);
-      System.out.print("Left Back INVERTED: Fixed");
-    }
-    else{
-      System.out.print("Left Back INVERTED: Clear");
-    }
-
-    if(left_fire.getInverted() != true){
-      left_fire.setInverted(true);
-      System.out.print("Left Back INVERTED: Fixed");
-    }
-    else{
-      System.out.print("Left Back INVERTED: Clear");
-    }
-
-    if(right_fire.getInverted() != false){
-      right_fire.setInverted(false);
-      System.out.print("Left Back INVERTED: Fixed");
-    }
-    else{
-      System.out.print("Left Back INVERTED: Clear");
-    }
+    InvertCheck.CheckInvertVICTOR(left_back_CIM, b_true);
+    InvertCheck.CheckInvertVICTOR(left_front_CIM, b_true);
+    InvertCheck.CheckInvertTALON(left_fire, b_true);
+    InvertCheck.CheckInvertVICTOR(right_back_CIM, b_flase);
+    InvertCheck.CheckInvertVICTOR(right_front_CIM, b_flase);
+    InvertCheck.CheckInvertTALON(right_fire, b_flase);
 
     left_back_CIM.follow(left_front_CIM);
     right_back_CIM.follow(left_front_CIM);
